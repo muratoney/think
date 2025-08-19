@@ -205,108 +205,15 @@ const PostItem = ({ body, user_id, time }: ItemProps) => (
 );
 
 const App = () => {
-  // header code
-
-  const scrollY = useRef(new Animated.Value(0)).current;
-  const prevScrollY = useRef(0);
-  const [showHeader, setShowHeader] = useState(true);
-  const headerTranslateY = useRef(new Animated.Value(0)).current;
-  const titleTranslateY = useRef(new Animated.Value(0)).current;
-  const animatedFontSize = useRef(new Animated.Value(0)).current;
-
-  interface HandleScrollEvent extends NativeSyntheticEvent<NativeScrollEvent> {}
-
-  const handleScroll = (event: HandleScrollEvent): void => {
-    const currentY = event.nativeEvent.contentOffset.y;
-    scrollY.setValue(currentY);
-    if (
-      currentY - prevScrollY.current > SCROLL_THRESHOLD &&
-      showHeader &&
-      currentY > 0
-    ) {
-      setShowHeader(false);
-      Animated.timing(animatedFontSize, {
-        toValue: 0.5,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-      Animated.timing(headerTranslateY, {
-        toValue: -150,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-      Animated.timing(titleTranslateY, {
-        toValue: 20,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-    } else if (
-      prevScrollY.current - currentY > SCROLL_THRESHOLD &&
-      !showHeader
-    ) {
-      setShowHeader(true);
-      Animated.timing(animatedFontSize, {
-        toValue: 1,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-      Animated.timing(headerTranslateY, {
-        toValue: 0,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-      Animated.timing(titleTranslateY, {
-        toValue: 0,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-    }
-    prevScrollY.current = currentY;
-  };
+  
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <Animated.View
-          style={[
-            styles.header,
-            { transform: [{ translateY: headerTranslateY }] },
-          ]}
-        >
-          <Animated.Text
-            style={[styles.headerTitle,
-              {
-                transform: [
-                  { scale: animatedFontSize },
-                  { translateY: titleTranslateY },
-                ],
-              },
-            ]}
-          >
-            Th|nk
-          </Animated.Text>
-          {/* <View
-            style={{
-              width: "100%",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              paddingHorizontal: 100,
-              marginBottom: 8,
-            }}
-          >
-            <Pressable>
-              <Text style={[styles.headerItem]}>Local</Text>
-            </Pressable>
-            <Pressable>
-              <Text style={styles.headerItem}>Following</Text>
-            </Pressable>
-          </View> */}
-        </Animated.View>
-
+        
         <Animated.FlatList
-          onScroll={handleScroll}
-          contentContainerStyle={{ paddingTop: 80 }}
+          // onScroll={handleScroll}
+          contentContainerStyle={{ paddingTop: 0 }}
           data={DATA}
           renderItem={({ item }) => (
             <PostItem
@@ -385,3 +292,106 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+
+
+// Placeholder
+
+
+// TOP BAR FILTER
+/* <View
+            style={{
+              width: "100%",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingHorizontal: 100,
+              marginBottom: 8,
+            }}
+          >
+            <Pressable>
+              <Text style={[styles.headerItem]}>Local</Text>
+            </Pressable>
+            <Pressable>
+              <Text style={styles.headerItem}>Following</Text>
+            </Pressable>
+          </View> */
+
+// Top bar
+ {/* <Animated.View
+          style={[
+            styles.header,
+            { transform: [{ translateY: headerTranslateY }] },
+          ]}
+        >
+          <Animated.Text
+            style={[styles.headerTitle,
+              {
+                transform: [
+                  { scale: animatedFontSize },
+                  { translateY: titleTranslateY },
+                ],
+              },
+            ]}
+          >
+            Th|nk
+          </Animated.Text>
+        </Animated.View> */}
+
+// scroll code
+// const scrollY = useRef(new Animated.Value(0)).current;
+//   const prevScrollY = useRef(0);
+//   const [showHeader, setShowHeader] = useState(true);
+//   const headerTranslateY = useRef(new Animated.Value(0)).current;
+//   const titleTranslateY = useRef(new Animated.Value(0)).current;
+//   const animatedFontSize = useRef(new Animated.Value(0)).current;
+
+//   interface HandleScrollEvent extends NativeSyntheticEvent<NativeScrollEvent> {}
+
+//   const handleScroll = (event: HandleScrollEvent): void => {
+//     const currentY = event.nativeEvent.contentOffset.y;
+//     scrollY.setValue(currentY);
+//     if (
+//       currentY - prevScrollY.current > SCROLL_THRESHOLD &&
+//       showHeader &&
+//       currentY > 0
+//     ) {
+//       setShowHeader(false);
+//       Animated.timing(animatedFontSize, {
+//         toValue: 0.5,
+//         duration: 200,
+//         useNativeDriver: true,
+//       }).start();
+//       Animated.timing(headerTranslateY, {
+//         toValue: -150,
+//         duration: 200,
+//         useNativeDriver: true,
+//       }).start();
+//       Animated.timing(titleTranslateY, {
+//         toValue: 20,
+//         duration: 200,
+//         useNativeDriver: true,
+//       }).start();
+//     } else if (
+//       prevScrollY.current - currentY > SCROLL_THRESHOLD &&
+//       !showHeader
+//     ) {
+//       setShowHeader(true);
+//       Animated.timing(animatedFontSize, {
+//         toValue: 1,
+//         duration: 200,
+//         useNativeDriver: true,
+//       }).start();
+//       Animated.timing(headerTranslateY, {
+//         toValue: 0,
+//         duration: 200,
+//         useNativeDriver: true,
+//       }).start();
+//       Animated.timing(titleTranslateY, {
+//         toValue: 0,
+//         duration: 200,
+//         useNativeDriver: true,
+//       }).start();
+//     }
+//     prevScrollY.current = currentY;
+//   };
